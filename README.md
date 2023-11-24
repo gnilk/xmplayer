@@ -8,3 +8,5 @@ Written as a test (in 2004?) to fiddle with old Amiga MOD and FastTracker XM fil
 Ported to macOS as a test to use Audio related stuff.
 
 Added to github as a backup/reference.
+
+NOTE: Extreme clicking..  
