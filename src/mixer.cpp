@@ -315,8 +315,8 @@ void Channel::render(Mixer *ptrMixer, int dwNumSamples)
 
 		//
 		// --> divide by number of channels
-		//
-		val = val * mulActiveChannel;
+		// [gnilk, 2023-11-24] - we should never do this - this is now how audio works - but well - this is history...
+		// val = val * mulActiveChannel;
 
 
 		*ptrLeft  += val;
