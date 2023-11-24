@@ -1039,12 +1039,24 @@ void XMFile::doTick()
 
 			if (ptrInstruments[instr].instrextra)
 			{
-				dwSample = ptrInstruments[instr].instrextra->votesmpnumber[dwNote-1];
-				ptrSample = &ptrInstruments[instr].sample[dwSample];
+				if (dwNote > 0) {
+					// FIXME: Need to figure out how to fix this...
+					dwSample = ptrInstruments[instr].instrextra->votesmpnumber[dwNote-1];
+					ptrSample = &ptrInstruments[instr].sample[dwSample];
 
-				fxNote[i].outChannel.reset();
-				fxNote[i].outChannel.setDataStream(ptrSample->data,ptrSample->len,Channel::f16BitSigned);
-				fxNote[i].outChannel.setLoopParameters(false,0,0);
+					fxNote[i].outChannel.reset();
+					fxNote[i].outChannel.setDataStream(ptrSample->data,ptrSample->len,Channel::f16BitSigned);
+					fxNote[i].outChannel.setLoopParameters(false,0,0);
+				} else {
+					// Should retrigger the current note, keep sample position but reset env.
+					printf("dwNote = 0, special retrigger?\n");
+					ptrSample = fxNote[i].ptrSample;
+					if (ptrSample == nullptr) {
+						printf("No sample, can't retrigger..\n");
+						continue;
+					}
+				}
+
 
 				//
 				// TODO: need to add proper support for different loop styles...
